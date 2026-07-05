@@ -1,7 +1,0 @@
-{
-  "name": "uiri/ims",
-  "description": "UIRI Inventory Management System",
-  "require": {
-    "phpmailer/phpmailer": "^6.8"
-  }
-}
