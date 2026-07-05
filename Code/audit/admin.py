@@ -8,20 +8,22 @@ class AuditLogAdmin(admin.ModelAdmin):
         "user",
         "action",
         "model_name",
+        "object_id",
+        "ip_address",
         "timestamp",
     )
-
-    list_filter = (
-        "action",
-        "timestamp",
-    )
-
-    search_fields = (
-        "user__username",
-        "model_name",
-        "action",
-    )
-
+    list_filter = ("action", "model_name", "timestamp")
+    search_fields = ("user__username", "action", "model_name", "object_id", "details")
     readonly_fields = (
+        "user",
+        "action",
+        "model_name",
+        "object_id",
+        "details",
+        "ip_address",
         "timestamp",
+        "created_at",
+        "updated_at",
+        "is_active",
     )
+    ordering = ("-timestamp",)

@@ -21,10 +21,15 @@ class Section(BaseModel):
     )
     name = models.CharField(max_length=100)
 
+    
     class Meta:
-        verbose_name = "Section"
-        verbose_name_plural = "Sections"
-        unique_together = ('campus', 'name')
+        constraints = [
+            models.UniqueConstraint(
+                fields=["campus", "name"],
+                name="unique_section_per_campus"
+            )
+        ]
+        ordering = ["campus__name", "name"]
 
     def __str__(self):
         return f"{self.name} ({self.campus.name})"
@@ -38,9 +43,13 @@ class Location(BaseModel):
     name = models.CharField(max_length=100)
 
     class Meta:
-        verbose_name = "Location"
-        verbose_name_plural = "Locations"
-        unique_together = ('section', 'name')
+        constraints = [
+            models.UniqueConstraint(
+                fields=["section", "name"],
+                name="unique_location_per_section"
+            )
+        ]
+        ordering = ["section__campus__name", "section__name", "name"]
 
     def __str__(self):
         return f"{self.name} - {self.section.name}"

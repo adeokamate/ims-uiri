@@ -35,7 +35,18 @@ class UserAccount(AbstractUser):
         related_name="users"
     )
 
-    phone = models.CharField(max_length=20, blank=True, null=True)
+    employee_no = models.CharField(
+        max_length=30,
+        unique=True,
+        null=True,
+        blank=True
+    )
+
+    photo = models.ImageField(
+    upload_to="users/",
+    blank=True,
+    null=True
+)
 
     def __str__(self):
-        return self.username
+        return f"{self.employee_no} - {self.get_full_name()} ({self.username})"
